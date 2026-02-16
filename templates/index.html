@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered restaurant inventory optimization system using Deep Reinforcement Learning. Get smart ordering recommendations to maximize profit and minimize waste.">
+    <meta name="keywords" content="inventory optimization, restaurant management, AI, deep learning, DDQN, ordering system">
+    <meta name="author" content="Inventory Optimization System">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="AI Restaurant Inventory Optimizer">
+    <meta property="og:description" content="Smart inventory management powered by Deep Reinforcement Learning">
+    
+    <title>AI Restaurant Inventory Optimizer | DDQN-Powered Smart Ordering</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3h18v18H3V3z"/>
+                        <path d="M9 9h6v6H9V9z"/>
+                    </svg>
+                    <h1>Inventory Optimizer</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#predictor" class="nav-link">Predictor</a>
+                    <a href="#comparison" class="nav-link">Performance</a>
+                    <a href="#about" class="nav-link">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-title">AI-Powered Inventory Optimization</h2>
+                <p class="hero-subtitle">
+                    Maximize profit, minimize waste with Deep Reinforcement Learning (DDQN)
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">5%+</div>
+                        <div class="stat-label">Profit Increase</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">15%</div>
+                        <div class="stat-label">Waste Reduction</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">95%+</div>
+                        <div class="stat-label">Service Level</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Predictor Section -->
+    <section id="predictor" class="section predictor-section">
+        <div class="container">
+            <h2 class="section-title">Get Your Ordering Recommendation</h2>
+            <p class="section-subtitle">Enter your current inventory and select the day to receive AI-powered ordering advice</p>
+            
+            <div class="predictor-grid">
+                <!-- Input Form -->
+                <div class="card predictor-card">
+                    <h3 class="card-title">Input Parameters</h3>
+                    
+                    <form id="predictionForm" class="prediction-form">
+                        <div class="form-group">
+                            <label for="inventory" class="form-label">
+                                Current Inventory (units)
+                                <span class="form-hint">Range: 0-500</span>
+                            </label>
+                            <input 
+                                type="number" 
+                                id="inventory" 
+                                name="inventory" 
+                                class="form-input"
+                                min="0" 
+                                max="500" 
+                                value="150"
+                                required
+                            >
+                            <div class="input-slider">
+                                <input 
+                                    type="range" 
+                                    id="inventorySlider" 
+                                    min="0" 
+                                    max="500" 
+                                    value="150"
+                                    class="slider"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="day" class="form-label">Day of Week</label>
+                            <select id="day" name="day" class="form-select" required>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="predictBtn">
+                            <span class="btn-text">Get Recommendation</span>
+                            <span class="btn-loading" style="display: none;">
+                                <svg class="spinner" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none"/>
+                                </svg>
+                                Analyzing...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Results Card -->
+                <div class="card result-card" id="resultCard" style="display: none;">
+                    <h3 class="card-title">Recommendation</h3>
+                    
+                    <div class="result-highlight">
+                        <div class="result-main">
+                            <div class="result-label">Order Quantity</div>
+                            <div class="result-value" id="orderQuantity">--</div>
+                            <div class="result-unit">units</div>
+                        </div>
+                        <div class="confidence-badge" id="confidenceBadge">
+                            <span id="confidenceText">--</span>
+                        </div>
+                    </div>
+
+                    <div class="result-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Current Inventory:</span>
+                            <span class="detail-value" id="currentInv">--</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">After Order:</span>
+                            <span class="detail-value" id="afterOrderInv">--</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Expected Demand:</span>
+                            <span class="detail-value" id="expectedDemand">--</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Coverage:</span>
+                            <span class="detail-value" id="coverage">--</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Capacity Utilization:</span>
+                            <span class="detail-value" id="capacity">--</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Waste Risk:</span>
+                            <span class="detail-value risk-badge" id="wasteRisk">--</span>
+                        </div>
+                    </div>
+
+                    <div class="reasoning-box">
+                        <h4 class="reasoning-title">AI Reasoning</h4>
+                        <p class="reasoning-text" id="reasoning">--</p>
+                    </div>
+                </div>
+
+                <!-- Error Card -->
+                <div class="card error-card" id="errorCard" style="display: none;">
+                    <div class="error-content">
+                        <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="8" x2="12" y2="12"/>
+                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        </svg>
+                        <h3 class="error-title">Error</h3>
+                        <p class="error-message" id="errorMessage">--</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section id="comparison" class="section comparison-section">
+        <div class="container">
+            <h2 class="section-title">Model Performance Comparison</h2>
+            <p class="section-subtitle">How DDQN outperforms traditional approaches</p>
+
+            <!-- Method Cards -->
+            <div class="method-grid">
+                <div class="card method-card">
+                    <div class="method-badge baseline">Baseline</div>
+                    <h3 class="method-title">Heuristic (Owner)</h3>
+                    <p class="method-desc">Traditional rule-based approach: "Order to bring inventory to 300 units"</p>
+                    <div class="method-stat">
+                        <div class="method-stat-value" id="heuristicProfit">$9,265</div>
+                        <div class="method-stat-label">Avg Weekly Profit</div>
+                    </div>
+                </div>
+
+                <div class="card method-card">
+                    <div class="method-badge">RL Model</div>
+                    <h3 class="method-title">DQN</h3>
+                    <p class="method-desc">Standard Deep Q-Network with experience replay</p>
+                    <div class="method-stat">
+                        <div class="method-stat-value" id="dqnProfit">$9,725</div>
+                        <div class="method-stat-label">Avg Weekly Profit</div>
+                        <div class="method-improvement" id="dqnImprovement">+5.0%</div>
+                    </div>
+                </div>
+
+                <div class="card method-card winner">
+                    <div class="method-badge winner-badge">🏆 Winner</div>
+                    <h3 class="method-title">Double DQN</h3>
+                    <p class="method-desc">Reduces overestimation bias, more stable learning</p>
+                    <div class="method-stat">
+                        <div class="method-stat-value" id="ddqnProfit">$10,211</div>
+                        <div class="method-stat-label">Avg Weekly Profit</div>
+                        <div class="method-improvement winner-improvement" id="ddqnImprovement">+10.2%</div>
+                    </div>
+                </div>
+
+                <div class="card method-card">
+                    <div class="method-badge">RL Model</div>
+                    <h3 class="method-title">Dueling DQN</h3>
+                    <p class="method-desc">Separate value and advantage streams</p>
+                    <div class="method-stat">
+                        <div class="method-stat-value" id="duelingProfit">$9,950</div>
+                        <div class="method-stat-label">Avg Weekly Profit</div>
+                        <div class="method-improvement" id="duelingImprovement">+7.4%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="card chart-card">
+                    <h3 class="card-title">Training Progress</h3>
+                    <canvas id="trainingChart"></canvas>
+                </div>
+
+                <div class="card chart-card">
+                    <h3 class="card-title">Key Metrics Comparison</h3>
+                    <canvas id="metricsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">About This System</h2>
+                
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="about-icon">🧠</div>
+                        <h3>Deep Reinforcement Learning</h3>
+                        <p>Trained using Double DQN (DDQN) algorithm with 10,000 episodes of simulated restaurant operations</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-icon">📊</div>
+                        <h3>Data-Driven Decisions</h3>
+                        <p>Optimizes for profit maximization while balancing service level, waste, and stockout costs</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-icon">⚡</div>
+                        <h3>Real-Time Predictions</h3>
+                        <p>Instant recommendations based on current inventory and day of week using trained neural network</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-icon">🎯</div>
+                        <h3>Proven Results</h3>
+                        <p>10.2% profit improvement over traditional methods with 95%+ service level maintained</p>
+                    </div>
+                </div>
+
+                <div class="tech-stack">
+                    <h3>Technology Stack</h3>
+                    <div class="tech-badges">
+                        <span class="tech-badge">PyTorch</span>
+                        <span class="tech-badge">Flask</span>
+                        <span class="tech-badge">Double DQN</span>
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">Chart.js</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 AI Restaurant Inventory Optimizer. Built with Deep Reinforcement Learning.</p>
+                <div class="footer-links">
+                    <a href="https://github.com/yourusername/inventory-optimization-deep-rl" target="_blank" class="footer-link">GitHub</a>
+                    <a href="#" class="footer-link">Documentation</a>
+                    <a href="#" class="footer-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
