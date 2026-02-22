@@ -5,13 +5,13 @@
 [![Flask](https://img.shields.io/badge/Flask-3.0-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Online-success?style=for-the-badge&logo=render)](https://inventory-optimization-deep-rl.onrender.com/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)](https://github.com/yourusername/inventory-optimization-deep-rl/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)](https://github.com/spouladchang/inventory-optimization-deep-rl/graphs/commit-activity)
 
 > **AI-powered inventory management system that maximizes profit while minimizing waste using Double Deep Q-Networks (DDQN)**
 
 <div align="center">
   
-### 🚀 [**Live Web Application**](https://inventory-optimization-deep-rl.onrender.com/) | 📊 [Research Notebooks](notebooks/) | 📖 [Documentation](#documentation)
+### 🚀 [**Live Web Application**](https://inventory-optimization-deep-rl.onrender.com/) | 📊 [Research Notebooks](notebooks/) | 📖 [Documentation](docs/)
 
 </div>
 
@@ -418,7 +418,7 @@ GET  /health             # Health check endpoint
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/inventory-optimization-deep-rl.git
+git clone https://github.com/spouladchang/inventory-optimization-deep-rl.git
 cd inventory-optimization-deep-rl
 
 # Install dependencies
@@ -493,7 +493,7 @@ http://localhost:5000
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/inventory-optimization-deep-rl.git
+git clone https://github.com/spouladchang/inventory-optimization-deep-rl.git
 cd inventory-optimization-deep-rl
 
 # Install dependencies
@@ -680,6 +680,11 @@ inventory-optimization-deep-rl/
 │   ├── ddqn_final.pth                          # Double DQN weights
 │   ├── dueling_dqn_final.pth                   # Dueling DQN weights
 │   └── comparison_metrics.json                 # Performance data
+│
+├── docs/                                        # 📚 Documentation
+│   ├── SETUP_GUIDE.md                          # Setup & quick start
+│   ├── DEPLOYMENT_GUIDE.md                     # Deployment instructions
+│   └── WEB_APP_README.md                       # Web app documentation
 │
 └── results/                                     # 📊 Generated outputs
     ├── figures/                                # Plots and charts
@@ -886,7 +891,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ### MIT License Summary
 
 ```
-Copyright (c) 2026 [Your Name]
+Copyright (c) 2026 Saeid Pouladchang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -905,12 +910,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND...
 
 ## 👤 Author
 
-**[Your Name]**
+**Saeid Pouladchang**
 
-- 🌐 Website: [your-website.com](https://your-website.com)
-- 💼 LinkedIn: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
-- 🐙 GitHub: [@yourusername](https://github.com/yourusername)
-- 📧 Email: your.email@example.com
+- 🌐 Website: [spouladchang.github.io](https://spouladchang.github.io/)
+- 💼 LinkedIn: [linkedin.com/in/saeid-pouladchang](https://linkedin.com/in/saeid-pouladchang)
+- 🐙 GitHub: [@spouladchang](https://github.com/spouladchang)
+- 📧 Email: saeedpooladchang78@gmail.com
 
 ---
 
@@ -928,7 +933,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND...
 
 If you find this project helpful, please consider giving it a star! ⭐
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/inventory-optimization-deep-rl&type=Date)](https://star-history.com/#yourusername/inventory-optimization-deep-rl&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=spouladchang/inventory-optimization-deep-rl&type=Date)](https://star-history.com/#spouladchang/inventory-optimization-deep-rl&Date)
 
 ---
 
@@ -938,14 +943,27 @@ If you use this code or methodology in your research, please cite:
 
 ```bibtex
 @misc{inventory-optimization-ddqn-2026,
-  author = {Your Name},
+  author = {Saeid Pouladchang},
   title = {Restaurant Inventory Optimization using Deep Reinforcement Learning},
   year = {2026},
   publisher = {GitHub},
   journal = {GitHub repository},
-  howpublished = {\url{https://github.com/yourusername/inventory-optimization-deep-rl}},
+  howpublished = {\url{https://github.com/spouladchang/inventory-optimization-deep-rl}},
   note = {Live demo: \url{https://inventory-optimization-deep-rl.onrender.com/}}
 }
+```
+
+
+---
+
+## 📚 How Others Would Use It:
+
+**Scenario:** A student writes a thesis about inventory management using RL.
+
+**In their paper, they write:**
+```
+"Recent work by Pouladchang [1] demonstrated that Double DQN can 
+achieve 10.2% profit improvement in restaurant inventory optimization..."
 ```
 
 ---
@@ -973,20 +991,20 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📞 Support
 
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/yourusername/inventory-optimization-deep-rl/issues)
-- 💡 **Feature Requests**: [GitHub Issues](https://github.com/yourusername/inventory-optimization-deep-rl/issues)
-- 📧 **Email**: your.email@example.com
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/yourusername/inventory-optimization-deep-rl/discussions)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/spouladchang/inventory-optimization-deep-rl/issues)
+- 💡 **Feature Requests**: [GitHub Issues](https://github.com/spouladchang/inventory-optimization-deep-rl/issues)
+- 📧 **Email**: saeedpooladchang78@gmail.com
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/spouladchang/inventory-optimization-deep-rl/discussions)
 
 ---
 
 ## 📈 Project Stats
 
-![GitHub stars](https://img.shields.io/github/stars/yourusername/inventory-optimization-deep-rl?style=social)
-![GitHub forks](https://img.shields.io/github/forks/yourusername/inventory-optimization-deep-rl?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/yourusername/inventory-optimization-deep-rl?style=social)
-![GitHub issues](https://img.shields.io/github/issues/yourusername/inventory-optimization-deep-rl)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/yourusername/inventory-optimization-deep-rl)
+![GitHub stars](https://img.shields.io/github/stars/spouladchang/inventory-optimization-deep-rl?style=social)
+![GitHub forks](https://img.shields.io/github/forks/spouladchang/inventory-optimization-deep-rl?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/spouladchang/inventory-optimization-deep-rl?style=social)
+![GitHub issues](https://img.shields.io/github/issues/spouladchang/inventory-optimization-deep-rl)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/spouladchang/inventory-optimization-deep-rl)
 
 ---
 
@@ -996,6 +1014,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 **Built with ❤️ using PyTorch, Flask, and Deep Reinforcement Learning**
 
-© 2026 [Your Name]. All rights reserved.
+© 2026 Saeid Pouladchang. All rights reserved.
 
 </div>
